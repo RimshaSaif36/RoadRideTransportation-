@@ -36,14 +36,7 @@ export function ServicesPreview() {
                   <p className="text-muted text-sm leading-relaxed">
                     {service.shortDescription}
                   </p>
-                  <div className="mt-auto flex items-center justify-between pt-4">
-                    {service.priceFrom ? (
-                      <span className="text-sm font-semibold text-gold">
-                        From {service.priceFrom} SAR
-                      </span>
-                    ) : (
-                      <span className="text-muted text-sm">Custom pricing</span>
-                    )}
+                  <div className="mt-auto flex items-center justify-end pt-4">
                     <Button
                       href={`/booking?service=${service.slug}`}
                       variant="ghost"

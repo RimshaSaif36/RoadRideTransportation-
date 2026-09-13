@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, Outlet, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -34,10 +35,21 @@ function PublicLayout() {
   );
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route element={<PublicLayout />}>
             <Route path="/" element={<HomePage />} />

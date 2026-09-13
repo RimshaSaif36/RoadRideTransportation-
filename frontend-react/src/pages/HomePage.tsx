@@ -34,14 +34,32 @@ export default function HomePage() {
         <link rel="canonical" href={siteConfig.url} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
-      <Hero />
-      <HowItWorks />
-      <ServicesPreview />
-      <FleetPreview />
-      <WhyChooseUs />
-      <TestimonialsSection />
-      <FaqPreview />
-      <ContactCta />
+      <main className="flex flex-col">
+        <div className="order-0">
+          <Hero />
+        </div>
+        <div className="order-3 md:order-1">
+          <HowItWorks />
+        </div>
+        <div className="order-2 md:order-2">
+          <ServicesPreview />
+        </div>
+        <div className="order-1 md:order-3">
+          <FleetPreview />
+        </div>
+        <div className="order-4">
+          <WhyChooseUs />
+        </div>
+        <div className="order-5">
+          <TestimonialsSection />
+        </div>
+        <div className="order-6">
+          <FaqPreview />
+        </div>
+        <div className="order-7">
+          <ContactCta />
+        </div>
+      </main>
     </>
   );
 }

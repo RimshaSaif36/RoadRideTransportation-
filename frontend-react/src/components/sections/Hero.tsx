@@ -7,22 +7,21 @@ import {
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
+import { fleet } from "@/data/fleet";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
-const heroImages = [
-  { src: "/new1.jpg", alt: "RoadRide Transportation luxury vehicle" },
-  { src: "/new2.jpg", alt: "RoadRide Transportation luxury vehicle" },
-  { src: "/new3.jpg", alt: "RoadRide Transportation luxury vehicle" },
-  { src: "/new4.jpg", alt: "RoadRide Transportation luxury vehicle" },
-];
+const heroImages = fleet.map((vehicle) => ({
+  src: vehicle.image,
+  alt: vehicle.name,
+}));
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-ink">
       {/* Background Glow — kept on the left, behind the text */}
-      <div className="absolute -left-32 top-20 h-130 w-130 rounded-full bg-gold/10 blur-[120px]" />
-      <div className="absolute -left-40 bottom-0 h-[350px] w-[350px] rounded-full bg-gold/5 blur-[100px]" />
+      <div className="absolute -left-32 top-20 hidden h-130 w-130 rounded-full bg-gold/10 blur-[120px] sm:block" />
+      <div className="absolute -left-40 bottom-0 hidden h-[350px] w-[350px] rounded-full bg-gold/5 blur-[100px] sm:block" />
 
       <Container className="relative z-10 grid min-h-[70vh] items-center gap-6 py-8 sm:gap-10 sm:py-12 lg:min-h-[82vh] lg:grid-cols-[1fr_1.3fr]">
 
@@ -37,7 +36,7 @@ export function Hero() {
             Licensed • Trusted • 24/7 Service
           </div>
 
-          <h1 className="mt-6 font-display text-2xl font-semibold italic leading-[1.15] tracking-wide text-white sm:text-4xl lg:mt-8 lg:text-6xl">
+          <h1 className="mt-6 rounded-sm bg-ink px-3 py-3 font-display text-2xl font-semibold italic leading-[1.15] tracking-wide text-white sm:bg-transparent sm:px-0 sm:py-0 sm:text-4xl lg:mt-8 lg:text-6xl">
             Travel in
             <br />
 
@@ -101,7 +100,7 @@ function HeroImageSlider() {
   const current = heroImages[index];
 
   return (
-    <div className="relative aspect-[16/10] w-full max-w-sm overflow-hidden sm:max-w-md md:max-w-2xl lg:max-w-4xl">
+    <div className="relative aspect-[16/10] w-full max-w-sm overflow-hidden rounded-sm bg-ink sm:max-w-md sm:bg-transparent md:max-w-2xl lg:max-w-4xl">
       <AnimatePresence mode="wait">
         <motion.div
           key={current.src}

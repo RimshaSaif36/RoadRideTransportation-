@@ -6,7 +6,13 @@ import { PageHero } from "@/components/sections/PageHero";
 import { ContactCta } from "@/components/sections/ContactCta";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
 import { fleet } from "@/data/fleet";
-import { getVehicleRoutes, allRoutes } from "@/data/vehiclePricing";
+import {
+  getVehicleRoutes,
+  allRoutes,
+  gmcRoutes,
+  grandStarexRoutes,
+  stariaRoutes,
+} from "@/data/vehiclePricing";
 import { siteConfig } from "@/lib/site-config";
 import { Seo } from "@/components/Seo";
 
@@ -72,8 +78,16 @@ export default function VehiclePricingPage() {
             <div className="overflow-hidden rounded-sm border border-white/10">
               {(() => {
                 const vehiclePrices = getVehicleRoutes(vehicle.slug);
+                const routes =
+                  vehicle.slug === "staria"
+                    ? stariaRoutes
+                    : vehicle.slug === "gmc-yukon-xl"
+                      ? gmcRoutes
+                      : vehicle.slug === "grand-starex"
+                        ? grandStarexRoutes
+                        : allRoutes;
 
-                return allRoutes.map((route, i) => {
+                return routes.map((route, i) => {
                   const price = vehiclePrices?.[route.slug] || 0;
 
                   return (
@@ -93,11 +107,6 @@ export default function VehiclePricingPage() {
                   );
                 });
               })()}
-              <p className="text-muted bg-charcoal px-6 py-4 text-xs leading-relaxed">
-                Prices shown are vehicle-specific fares for Year 1447 (2026) — your driver will confirm the
-                exact fare on WhatsApp before your trip begins. <br /><br />
-                <strong>Note:</strong> Arrival from Hajj terminal adds 90 SAR parking charges.
-              </p>
             </div>
           </div>
         </Container>

@@ -54,14 +54,7 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-auto flex items-center justify-between border-t border-white/10 pt-4">
-                      {service.priceFrom ? (
-                        <span className="text-sm font-semibold text-gold">
-                          From {service.priceFrom} SAR
-                        </span>
-                      ) : (
-                        <span className="text-muted text-sm">Custom pricing</span>
-                      )}
+                    <div className="mt-auto flex items-center justify-end border-t border-white/10 pt-4">
                       <Button
                         href={`/booking?service=${service.slug}`}
                         variant="outline"

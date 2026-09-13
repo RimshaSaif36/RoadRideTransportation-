@@ -7,7 +7,7 @@ export const services: Service[] = [
     shortDescription: "Meet & greet arrivals and departures at King Abdulaziz Airport.",
     description:
       "Our driver tracks your flight and waits at arrivals with a name board, assisting with luggage and taking you straight to Makkah or Madinah — no queuing for shared transport.",
-    image: "/jaddah.jpg",
+    image: "/service3.jpg",
     features: ["Flight tracking", "Meet & greet", "Free waiting time", "24/7 availability"],
     priceFrom: 250,
     currency: "SAR",
@@ -73,7 +73,7 @@ export const services: Service[] = [
     shortDescription: "Complete transport package for your Umrah journey.",
     description:
       "End-to-end transport covering airport pickup, Makkah and Madinah transfers, and Ziyarah tours — a single reliable driver for your whole Umrah trip.",
-    image: "/service3.jpg",
+    image: "/umrah.jpg",
     features: ["Full itinerary support", "Single point of contact", "Ziyarah tours included", "Custom packages"],
     priceFrom: 900,
     currency: "SAR",
@@ -106,7 +106,7 @@ export const services: Service[] = [
     shortDescription: "Spacious vehicles suited for families travelling together.",
     description:
       "Roomy vans and SUVs with extra luggage space, child-friendly drivers, and flexible stops — built around how families actually travel.",
-    image: "/service3.jpg",
+    image: "/family.jpg",
     features: ["Extra luggage space", "Child-friendly", "Flexible stops", "Single fixed fare"],
     priceFrom: 500,
     currency: "SAR",

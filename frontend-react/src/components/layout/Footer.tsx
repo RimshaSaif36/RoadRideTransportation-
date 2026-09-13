@@ -13,8 +13,17 @@ import {
 const serviceLinks = [
   { label: "Umrah Transport", href: "/services" },
   { label: "Hajj Transport", href: "/services" },
-  { label: "Airport Transfer", href: "/services" },
+  { label: "Jeddah Airport Transfer", href: "/services" },
+  { label: "Makkah Hotel Transfer", href: "/services" },
+  { label: "Makkah to Madinah", href: "/services" },
+  { label: "Madinah Hotel Transfer", href: "/services" },
+  { label: "Madinah to Makkah", href: "/services" },
+  { label: "Haram Transport", href: "/services" },
+  { label: "Ziyarat of Holy Places", href: "/services" },
   { label: "VIP Transport", href: "/services" },
+  { label: "Family Transport", href: "/services" },
+  { label: "Group Transport", href: "/services" },
+  { label: "Corporate Transport", href: "/services" },
 ];
 
 const socialLinks = [
@@ -143,13 +152,21 @@ export function Footer() {
           <p>
             &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-end sm:gap-6">
             <Link to="/faq" className="transition-colors hover:text-gold">
               FAQ
             </Link>
             <Link to="/contact" className="transition-colors hover:text-gold">
               Contact
             </Link>
+            <a
+              href="https://my-portfolio-blond-kappa-75.vercel.app/"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-gold/50 bg-gold/10 px-3 py-1.5 font-medium text-gold transition-colors hover:bg-gold hover:text-ink"
+            >
+              Designed &amp; Developed by Rimsha Eman · View Portfolio
+            </a>
           </div>
         </Container>
       </div>

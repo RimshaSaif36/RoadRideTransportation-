@@ -13,14 +13,14 @@ export default function PricingPage() {
     <>
       <Seo
         title="Pricing"
-        description="Transparent, fixed pricing packages from RoadRide Transportation — Economy, Business, VIP and Luxury options for every budget."
+        description="Tailored transportation packages from RoadRide Transportation — Economy, Business, VIP and Luxury options for every journey."
         path="/pricing"
       />
 
       <PageHero
         kicker="Pricing"
-        title="Transparent Packages, No Surprises"
-        description="Every package below is a starting price — your driver will confirm the exact fare before your trip begins."
+        title="Packages for Every Journey"
+        description="Choose the package that suits your journey and contact us for a tailored quote."
       />
 
       <section className="bg-ink py-12 sm:py-24">
@@ -46,12 +46,6 @@ export default function PricingPage() {
                       {pkg.name}
                     </h2>
                     <p className="text-muted mt-1 text-sm">{pkg.tagline}</p>
-                  </div>
-                  <div>
-                    <span className="font-display text-3xl font-semibold text-gold">
-                      {pkg.priceFrom} SAR
-                    </span>
-                    <span className="text-muted text-sm"> / trip</span>
                   </div>
                   <ul className="flex flex-1 flex-col gap-3">
                     {pkg.features.map((feature) => (

@@ -54,35 +54,19 @@ export const vehiclePricing: VehiclePricing[] = [
     vehicleSlug: "gmc-yukon-xl",
     vehicleName: "GMC Yukon XL",
     pricing: {
-      // Jeddah Routes
-      "jeddah-airport-jeddah-hotel": 200,
-      "jeddah-hotel-jeddah-airport": 300,
-      "jeddah-airport-makkah-hotel": 550,
-      
-      // Makkah Routes
-      "makkah-hotel-jeddah-hotel": 500,
-      "makkah-hotel-makkah-hotel": 250,
-      "jeddah-airport-makkah-transfer": 250,
-      "makkah-hotel-return": 250,
-      "makkah-ziarat": 300,
-      
-      // Madinah Routes
-      "madinah-hotel-makkah-hotel": 500,
-      "madinah-hotel-madinah-hotel": 500,
-      "jeddah-airport-madinah-hotel": 200,
-      "madinah-ziarat": 250,
-      
-      // Taif & Other
-      "taif-tour": 600,
-      "madinah-airport-madinah-hotel": 200,
-      
-      // Legacy routes
-      "makkah-hotel-transfer": 250,
-      "makkah-to-madinah": 550,
-      "madinah-hotel-transfer": 250,
-      "madinah-to-makkah": 500,
-      "jeddah-airport-transfer": 200,
-      "haram-transport": 200,
+      "jeddah-airport-jeddah-hotel": 250,
+      "jeddah-hotel-jeddah-airport": 450,
+      "jeddah-airport-madinah-hotel": 900,
+      "makkah-hotel-madinah-hotel": 850,
+      "makkah-hotel-jeddah-airport": 350,
+      "makkah-hotel-makkah-hotel": 350,
+      "makkah-ziarat": 350,
+      "madinah-hotel-makkah-hotel": 850,
+      "madinah-hotel-jeddah-airport": 850,
+      "madinah-hotel-madinah-airport": 250,
+      "madinah-ziarat": 300,
+      "taif-tour": 800,
+      "madinah-airport-madinah-hotel": 300,
     },
   },
 
@@ -127,35 +111,12 @@ export const vehiclePricing: VehiclePricing[] = [
     vehicleSlug: "staria",
     vehicleName: "Hyundai Staria",
     pricing: {
-      // Jeddah Routes
-      "jeddah-airport-jeddah-hotel": 250,
-      "jeddah-hotel-jeddah-airport": 450,
-      "jeddah-airport-makkah-hotel": 900,
-      
-      // Makkah Routes
-      "makkah-hotel-jeddah-hotel": 850,
-      "makkah-hotel-makkah-hotel": 350,
-      "jeddah-airport-makkah-transfer": 350,
-      "makkah-hotel-return": 350,
-      "makkah-ziarat": 350,
-      
-      // Madinah Routes
-      "madinah-hotel-makkah-hotel": 850,
-      "madinah-hotel-madinah-hotel": 850,
-      "jeddah-airport-madinah-hotel": 250,
+      "jeddah-airport-makkah-hotel": 350,
+      "makkah-ziarat": 300,
       "madinah-ziarat": 300,
-      
-      // Taif & Other
-      "taif-tour": 800,
-      "madinah-airport-madinah-hotel": 300,
-      
-      // Legacy routes
-      "makkah-hotel-transfer": 300,
-      "makkah-to-madinah": 650,
-      "madinah-hotel-transfer": 300,
-      "madinah-to-makkah": 600,
-      "jeddah-airport-transfer": 250,
-      "haram-transport": 250,
+      "makkah-to-jeddah-airport": 300,
+      "makkah-to-madinah-hotel": 550,
+      "madinah-airport-madinah-hotel": 250,
     },
   },
 
@@ -163,35 +124,13 @@ export const vehiclePricing: VehiclePricing[] = [
     vehicleSlug: "grand-starex",
     vehicleName: "Hyundai Grand Starex",
     pricing: {
-      // Jeddah Routes
-      "jeddah-airport-jeddah-hotel": 250,
-      "jeddah-hotel-jeddah-airport": 450,
-      "jeddah-airport-makkah-hotel": 900,
-      
-      // Makkah Routes
-      "makkah-hotel-jeddah-hotel": 850,
-      "makkah-hotel-makkah-hotel": 350,
-      "jeddah-airport-makkah-transfer": 350,
-      "makkah-hotel-return": 350,
-      "makkah-ziarat": 350,
-      
-      // Madinah Routes
-      "madinah-hotel-makkah-hotel": 850,
-      "madinah-hotel-madinah-hotel": 850,
-      "jeddah-airport-madinah-hotel": 250,
+      "jeddah-airport-makkah-hotel": 350,
+      "makkah-ziarat": 300,
       "madinah-ziarat": 300,
-      
-      // Taif & Other
-      "taif-tour": 800,
+      "makkah-to-jeddah-airport": 300,
+      "makkah-to-madinah": 550,
+      "jeddah-airport-madinah-hotel": 600,
       "madinah-airport-madinah-hotel": 300,
-      
-      // Legacy routes
-      "makkah-hotel-transfer": 300,
-      "makkah-to-madinah": 650,
-      "madinah-hotel-transfer": 300,
-      "madinah-to-makkah": 600,
-      "jeddah-airport-transfer": 250,
-      "haram-transport": 250,
     },
   },
 
@@ -267,6 +206,45 @@ export const vehiclePricing: VehiclePricing[] = [
       "haram-transport": 350,
     },
   },
+];
+
+// Hyundai Staria has a dedicated route list supplied by the operator.
+// Keep this separate so changing it never affects the other vehicles.
+export const stariaRoutes = [
+  { slug: "jeddah-airport-makkah-hotel", name: "Jeddah Airport To Makkah Hotel" },
+  { slug: "makkah-ziarat", name: "Makkah Ziyarat Taxi" },
+  { slug: "madinah-ziarat", name: "Madinah Ziyarat Taxi" },
+  { slug: "makkah-to-jeddah-airport", name: "Makkah To Jeddah Airport" },
+  { slug: "makkah-to-madinah-hotel", name: "Makkah To Madinah Hotel" },
+  { slug: "madinah-airport-madinah-hotel", name: "Madinah Airport To Madinah Hotel" },
+];
+
+// GMC Yukon XL follows the operator's dedicated 1447 route chart.
+export const gmcRoutes = [
+  { slug: "jeddah-airport-jeddah-hotel", name: "Jeddah Airport To Jeddah Hotel" },
+  { slug: "jeddah-hotel-jeddah-airport", name: "Jeddah Hotel To Jeddah Airport" },
+  { slug: "jeddah-airport-madinah-hotel", name: "Jeddah Airport To Madinah Hotel" },
+  { slug: "makkah-hotel-madinah-hotel", name: "Makkah Hotel To Madinah Hotel" },
+  { slug: "makkah-hotel-jeddah-airport", name: "Makkah Hotel To Jeddah Airport" },
+  { slug: "makkah-hotel-makkah-hotel", name: "Makkah Hotel To Makkah Hotel" },
+  { slug: "makkah-ziarat", name: "Makkah Ziarat" },
+  { slug: "madinah-hotel-makkah-hotel", name: "Madinah Hotel To Makkah Hotel" },
+  { slug: "madinah-hotel-jeddah-airport", name: "Madinah Hotel To Jeddah Airport" },
+  { slug: "madinah-hotel-madinah-airport", name: "Madinah Hotel To Madinah Airport" },
+  { slug: "madinah-ziarat", name: "Madinah Ziarat" },
+  { slug: "taif-tour", name: "Taif Tour" },
+  { slug: "madinah-airport-madinah-hotel", name: "Madinah Airport To Madinah Hotel" },
+];
+
+// Hyundai Grand Starex has its own confirmed route list and fares.
+export const grandStarexRoutes = [
+  { slug: "jeddah-airport-makkah-hotel", name: "Jeddah Airport To Makkah Hotel" },
+  { slug: "makkah-ziarat", name: "Makkah Ziyarat" },
+  { slug: "madinah-ziarat", name: "Madinah Ziyarat" },
+  { slug: "makkah-to-jeddah-airport", name: "Makkah To Jeddah Airport" },
+  { slug: "makkah-to-madinah", name: "Makkah To Madinah" },
+  { slug: "jeddah-airport-madinah-hotel", name: "Jeddah Airport To Madinah Hotel" },
+  { slug: "madinah-airport-madinah-hotel", name: "Madinah Airport To Madinah Hotel" },
 ];
 
 // Helper function to get price for a specific vehicle and route
