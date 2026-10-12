@@ -41,10 +41,10 @@ export default function HomePage() {
         <div className="order-3 md:order-1">
           <HowItWorks />
         </div>
-        <div className="order-2 md:order-2">
+        <div className="order-2 md:order-3">
           <ServicesPreview />
         </div>
-        <div className="order-1 md:order-3">
+        <div className="order-1 md:order-2">
           <FleetPreview />
         </div>
         <div className="order-4">

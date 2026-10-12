@@ -37,8 +37,8 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-ink">
-      <Container className="grid grid-cols-1 gap-12 py-16 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="flex flex-col gap-4">
+      <Container className="grid grid-cols-2 gap-8 py-12 sm:gap-12 sm:py-16 lg:grid-cols-4">
+        <div className="col-span-2 flex flex-col gap-4 sm:col-span-1">
           <Link to="/" className="w-fit">
             <img
               src="/logo-nav.png"
@@ -90,7 +90,7 @@ export function Footer() {
             Services
           </h3>
           <ul className="flex flex-col gap-3">
-            {serviceLinks.map((link) => (
+            {serviceLinks.slice(0, 6).map((link) => (
               <li key={link.label}>
                 <Link
                   to={link.href}
@@ -103,14 +103,14 @@ export function Footer() {
           </ul>
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="col-span-2 flex flex-col gap-4 sm:col-span-1">
           <h3 className="font-display text-sm font-semibold uppercase tracking-widest text-white">
             Contact
           </h3>
           <ul className="flex flex-col gap-3 text-sm">
             <li className="flex items-start gap-3 text-muted">
               <MapPin size={18} className="mt-0.5 shrink-0 text-gold" />
-              {siteConfig.address}
+              Ibrahim Al Khalil Street, Al Taysir, Makkah 24231, Saudi Arabia
             </li>
             <li>
               <a
@@ -160,7 +160,7 @@ export function Footer() {
               Contact
             </Link>
             <a
-              href="https://my-portfolio-blond-kappa-75.vercel.app/"
+              href="https://portfolio-rho-beryl-54.vercel.app/"
               target="_blank"
               rel="noreferrer"
               className="rounded-full border border-gold/50 bg-gold/10 px-3 py-1.5 font-medium text-gold transition-colors hover:bg-gold hover:text-ink"

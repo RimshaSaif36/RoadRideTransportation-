@@ -30,3 +30,19 @@ contactRouter.get(
     res.json({ messages });
   }),
 );
+
+// Admin — permanently delete a contact message.
+contactRouter.delete(
+  "/:id",
+  requireAdmin,
+  asyncHandler(async (req, res) => {
+    const message = await ContactMessage.findByIdAndDelete(req.params.id);
+
+    if (!message) {
+      res.status(404).json({ error: "Message not found" });
+      return;
+    }
+
+    res.json({ success: true });
+  }),
+);

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Loader2, RefreshCw } from "lucide-react";
+import { Loader2, RefreshCw, Search, Trash2 } from "lucide-react";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { apiFetch, ApiError, clearAdminToken } from "@/lib/api";
+import { inputClasses } from "@/components/ui/FormField";
 import type { AdminBooking, AdminContactMessage, BookingStatus } from "@/types/booking";
 import { Seo } from "@/components/Seo";
 
@@ -26,6 +27,9 @@ export default function AdminDashboardPage() {
   const [error, setError] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [bookingSearch, setBookingSearch] = useState("");
+  const [bookingStatus, setBookingStatus] = useState<"all" | BookingStatus>("all");
 
   const loadData = async () => {
     setLoading(true);
@@ -69,9 +73,67 @@ export default function AdminDashboardPage() {
     }
   };
 
+  const deleteBooking = async (id: string) => {
+    if (!window.confirm("Delete this booking permanently?")) return;
+
+    setDeletingId(id);
+    setError(null);
+    try {
+      await apiFetch(`/api/bookings/${id}`, { method: "DELETE" });
+      setBookings((prev) => prev.filter((booking) => booking._id !== id));
+      setExpandedId((currentId) => (currentId === id ? null : currentId));
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "Failed to delete booking.");
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  const deleteMessage = async (id: string) => {
+    if (!window.confirm("Delete this message permanently?")) return;
+
+    setDeletingId(id);
+    setError(null);
+    try {
+      await apiFetch(`/api/contact/${id}`, { method: "DELETE" });
+      setMessages((prev) => prev.filter((message) => message._id !== id));
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "Failed to delete message.");
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  const normalizedSearch = bookingSearch.trim().toLowerCase();
+  const filteredBookings = bookings.filter((booking) => {
+    const matchesStatus = bookingStatus === "all" || booking.status === bookingStatus;
+    const searchableText = [
+      booking.name,
+      booking.phone,
+      booking.email,
+      booking.pickupLocation,
+      booking.dropLocation,
+      booking.vehicleType,
+    ]
+      .join(" ")
+      .toLowerCase();
+    return matchesStatus && (!normalizedSearch || searchableText.includes(normalizedSearch));
+  });
+
   return (
     <AdminLayout>
       <Seo title="Admin Dashboard" description="RoadRide Transportation admin dashboard." path="/admin/dashboard" />
+
+      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {STATUS_OPTIONS.map((status) => (
+          <div key={status} className="rounded-sm border border-white/10 bg-charcoal px-4 py-3">
+            <p className="text-muted text-xs uppercase tracking-wide">{status}</p>
+            <p className="mt-1 text-2xl font-semibold text-white">
+              {bookings.filter((booking) => booking.status === status).length}
+            </p>
+          </div>
+        ))}
+      </div>
 
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex gap-2">
@@ -116,7 +178,38 @@ export default function AdminDashboardPage() {
           <Loader2 size={28} className="animate-spin text-gold" />
         </div>
       ) : tab === "bookings" ? (
-        <div className="mt-6 overflow-x-auto rounded-sm border border-white/10">
+        <>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <label className="relative flex-1">
+              <Search size={16} className="text-muted pointer-events-none absolute left-3 top-1/2 -translate-y-1/2" />
+              <span className="sr-only">Search bookings</span>
+              <input
+                value={bookingSearch}
+                onChange={(event) => setBookingSearch(event.target.value)}
+                placeholder="Search name, phone, route, or vehicle"
+                className={`${inputClasses()} pl-9`}
+              />
+            </label>
+            <label>
+              <span className="sr-only">Filter bookings by status</span>
+              <select
+                value={bookingStatus}
+                onChange={(event) => setBookingStatus(event.target.value as "all" | BookingStatus)}
+                className={`${inputClasses()} capitalize sm:w-44`}
+              >
+                <option value="all">All statuses</option>
+                {STATUS_OPTIONS.map((status) => (
+                  <option key={status} value={status}>
+                    {status}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div className="mt-3 text-muted text-xs">
+            Showing {filteredBookings.length} of {bookings.length} bookings
+          </div>
+          <div className="mt-2 overflow-x-auto rounded-sm border border-white/10">
           <table className="w-full min-w-[900px] text-left text-sm">
             <thead className="bg-charcoal text-muted text-xs uppercase tracking-wide">
               <tr>
@@ -127,18 +220,19 @@ export default function AdminDashboardPage() {
                 <th className="px-4 py-3">Passengers</th>
                 <th className="px-4 py-3">Status</th>
                 <th className="px-4 py-3">Submitted</th>
+                <th className="px-4 py-3"><span className="sr-only">Actions</span></th>
               </tr>
             </thead>
             <tbody>
-              {bookings.length === 0 && (
+              {filteredBookings.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="text-muted px-4 py-8 text-center">
-                    No bookings yet.
+                  <td colSpan={8} className="text-muted px-4 py-8 text-center">
+                    {bookings.length === 0 ? "No bookings yet." : "No bookings match your filters."}
                   </td>
                 </tr>
               )}
-              {bookings.map((booking) => (
-                <>
+              {filteredBookings.map((booking) => (
+                <Fragment key={booking._id}>
                   <tr
                     key={booking._id}
                     onClick={() =>
@@ -177,10 +271,22 @@ export default function AdminDashboardPage() {
                     <td className="text-muted px-4 py-3 text-xs">
                       {new Date(booking.createdAt).toLocaleString()}
                     </td>
+                    <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
+                      <button
+                        type="button"
+                        title="Delete booking"
+                        aria-label={`Delete booking for ${booking.name}`}
+                        disabled={deletingId === booking._id}
+                        onClick={() => deleteBooking(booking._id)}
+                        className="text-muted rounded-sm p-2 hover:bg-red-500/10 hover:text-red-400 disabled:opacity-50"
+                      >
+                        {deletingId === booking._id ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
+                      </button>
+                    </td>
                   </tr>
                   {expandedId === booking._id && (
-                    <tr key={`${booking._id}-details`} className="border-t border-white/10 bg-white/5">
-                      <td colSpan={7} className="text-muted px-4 py-4 text-sm">
+                    <tr className="border-t border-white/10 bg-white/5">
+                      <td colSpan={8} className="text-muted px-4 py-4 text-sm">
                         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                           <p>
                             <span className="text-white/60">Email:</span> {booking.email}
@@ -196,11 +302,12 @@ export default function AdminDashboardPage() {
                       </td>
                     </tr>
                   )}
-                </>
+                </Fragment>
               ))}
             </tbody>
           </table>
-        </div>
+          </div>
+        </>
       ) : (
         <div className="mt-6 overflow-x-auto rounded-sm border border-white/10">
           <table className="w-full min-w-[700px] text-left text-sm">
@@ -210,12 +317,13 @@ export default function AdminDashboardPage() {
                 <th className="px-4 py-3">Subject</th>
                 <th className="px-4 py-3">Message</th>
                 <th className="px-4 py-3">Submitted</th>
+                <th className="px-4 py-3"><span className="sr-only">Actions</span></th>
               </tr>
             </thead>
             <tbody>
               {messages.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="text-muted px-4 py-8 text-center">
+                  <td colSpan={5} className="text-muted px-4 py-8 text-center">
                     No messages yet.
                   </td>
                 </tr>
@@ -232,6 +340,18 @@ export default function AdminDashboardPage() {
                   <td className="max-w-md px-4 py-3">{message.message}</td>
                   <td className="text-muted px-4 py-3 text-xs">
                     {new Date(message.createdAt).toLocaleString()}
+                  </td>
+                  <td className="px-4 py-3">
+                    <button
+                      type="button"
+                      title="Delete message"
+                      aria-label={`Delete message from ${message.name}`}
+                      disabled={deletingId === message._id}
+                      onClick={() => deleteMessage(message._id)}
+                      className="text-muted rounded-sm p-2 hover:bg-red-500/10 hover:text-red-400 disabled:opacity-50"
+                    >
+                      {deletingId === message._id ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
+                    </button>
                   </td>
                 </tr>
               ))}

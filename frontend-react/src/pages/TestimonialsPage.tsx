@@ -34,20 +34,11 @@ export default function TestimonialsPage() {
                     &ldquo;{t.quote}&rdquo;
                   </p>
                   <StarRating rating={t.rating} />
-                  <div className="flex items-center gap-3 border-t border-white/10 pt-4">
-                    <div className="relative h-10 w-10 overflow-hidden rounded-full border border-gold/40 sm:h-12 sm:w-12">
-                      <img
-                        src={t.avatar}
-                        alt={t.name}
-                        className="absolute inset-0 h-full w-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-white">{t.name}</p>
-                      <p className="text-muted text-xs">
-                        {t.country} &middot; {t.service}
-                      </p>
-                    </div>
+                  <div className="border-t border-white/10 pt-4">
+                    <p className="text-sm font-semibold text-white">{t.name}</p>
+                    <p className="text-muted text-xs">
+                      {t.country} &middot; {t.service}
+                    </p>
                   </div>
                 </Card>
               </Reveal>

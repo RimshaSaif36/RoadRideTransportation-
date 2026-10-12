@@ -61,3 +61,19 @@ bookingsRouter.patch(
     res.json({ booking });
   }),
 );
+
+// Admin — permanently delete a booking.
+bookingsRouter.delete(
+  "/:id",
+  requireAdmin,
+  asyncHandler(async (req, res) => {
+    const booking = await Booking.findByIdAndDelete(req.params.id);
+
+    if (!booking) {
+      res.status(404).json({ error: "Booking not found" });
+      return;
+    }
+
+    res.json({ success: true });
+  }),
+);

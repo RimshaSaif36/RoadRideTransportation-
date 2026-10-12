@@ -69,12 +69,9 @@ export function TestimonialsSection() {
                   key={i}
                   className="flex flex-col gap-4 rounded-sm border border-white/10 bg-charcoal p-6"
                 >
-                  <div className="flex items-center gap-3">
-                    <Skeleton className="h-12 w-12 rounded-full" />
-                    <div className="flex flex-col gap-2">
-                      <Skeleton className="h-3 w-24" />
-                      <Skeleton className="h-3 w-16" />
-                    </div>
+                  <div className="flex flex-col gap-2">
+                    <Skeleton className="h-3 w-24" />
+                    <Skeleton className="h-3 w-16" />
                   </div>
                   <Skeleton className="h-16 w-full" />
                 </div>
@@ -98,21 +95,12 @@ export function TestimonialsSection() {
                         key={t.id}
                         className="flex flex-col gap-4 rounded-sm border border-white/10 bg-charcoal p-6 transition-colors hover:border-gold/40"
                       >
-                        <div className="flex items-center gap-3">
-                          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-gold/40">
-                            <img
-                              src={t.avatar}
-                              alt={t.name}
-                              className="absolute inset-0 h-full w-full object-cover"
-                            />
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-1.5">
+                            <p className="text-sm font-semibold text-white">{t.name}</p>
+                            <BadgeCheck size={14} className="text-gold" />
                           </div>
-                          <div>
-                            <div className="flex items-center gap-1.5">
-                              <p className="text-sm font-semibold text-white">{t.name}</p>
-                              <BadgeCheck size={14} className="text-gold" />
-                            </div>
-                            <p className="text-muted text-xs">{t.postedAt}</p>
-                          </div>
+                          <span className="text-muted text-xs">{t.postedAt}</span>
                         </div>
 
                         <StarRating rating={t.rating} />
