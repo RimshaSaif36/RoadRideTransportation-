@@ -39,3 +39,7 @@ This is a normal long-running Express app (not a serverless function) — it nee
 persistent Node host such as Render, Railway, or Fly.io. Set the same environment
 variables there, run `npm run build && npm start`, and update the frontend's
 `REACT_APP_API_URL` to the deployed URL.
+
+For Apache/cPanel frontend deployments, the React build includes a `.htaccess` file in
+`frontend-react/public/` so routes such as `/admin/login` fall back to `index.html`
+instead of returning a 404.
